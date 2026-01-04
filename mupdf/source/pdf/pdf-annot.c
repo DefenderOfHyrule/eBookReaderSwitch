@@ -9,6 +9,29 @@
 #define timegm _mkgmtime
 #endif
 
+#ifdef __SWITCH__
+static time_t timegm(struct tm *tm)
+{
+	time_t ret;
+	char *tz;
+	
+	tz = getenv("TZ");
+	if (tz)
+		tz = strdup(tz);
+	setenv("TZ", "", 1);
+	tzset();
+	ret = mktime(tm);
+	if (tz) {
+		setenv("TZ", tz, 1);
+		free(tz);
+	} else {
+		unsetenv("TZ");
+	}
+	tzset();
+	return ret;
+}
+#endif
+
 #define isdigit(c) (c >= '0' && c <= '9')
 
 pdf_annot *
