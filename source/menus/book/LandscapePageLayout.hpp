@@ -1,6 +1,5 @@
 #ifndef EBOOK_READER_LANDSCAPE_PAGE_LAYOUT_HPP
 #define EBOOK_READER_LANDSCAPE_PAGE_LAYOUT_HPP
-
 #include "PageLayout.hpp"
 
 class LandscapePageLayout: public PageLayout
@@ -13,6 +12,6 @@ class LandscapePageLayout: public PageLayout
     
     protected:
         void move_page(float x, float y);
+        void render_page_to_texture(int num, bool reset_zoom);
 };
-
 #endif
